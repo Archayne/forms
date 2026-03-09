@@ -3,13 +3,27 @@
 <head>
     <title>Document</title>
 </head>
+
 <body>
     <form action="http://www.google.com/search">
   <div>
     Let's search Google:
-    <input type="text" name="q" />
+    <input type="text" name="q" value="batman"/>
     <input type="submit" />
   </div>
+</form>
+<br> <hr>
+<form action="submit">
+  Username<input type="text" size="10" maxlength="8" name="username"><br>
+  Password<input type="password" size="16" name="password"><br>
+  <textarea name="essay" rows="4" cols="20">Type Your Essay Here</textarea> 
+  <div>
+    <p>What topping do you want on your pizza?</p>
+    <input type="checkbox" value="yes plz" name="Pepperoni">Pepperoni <br>
+    <input type="checkbox" name="Sausage" checked>Sausage <br>
+    <input type="checkbox" name="Chicken">Chicken <br>
+  </div>
+  <input type="submit" value="Submit">
 </form>
 </body>
 </html>
