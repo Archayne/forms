@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const userRouter = require('./routes/users');
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
@@ -7,6 +8,7 @@ app.use(express.static("public"));
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use('users', userRouter);
 
 // GET /submit - logs query parameters
 app.get('/submit', (req, res) => {
@@ -36,6 +38,20 @@ app.get('/solution', (req, res) => {
   let total = num1 + num2
   res.send(`<h2>${num1} + ${num2} = ${total} </h2>`);
 });
+
+router.get('/new', (req, res)=>{ // /users/new
+  res,send('User New Form');
+});
+
+
+router.route('/:id').get((req, res)=>{
+ res.send(`Getting User data for id: ${req.params.id}`);
+}).delete((req, res)=>{
+res.send(`Deleting User data for id: ${req.params.id}`);
+}).put((req, res)=>{
+res.send(`Updating User data for id: ${req.params.id}`);
+});
+
 
 app.listen(3030, () => {
   console.log('Server running on http://localhost:3030');
