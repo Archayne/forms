@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('users', userRouter);
 
-app.use('/quiz', quizRouter);
+app.use('quiz', quizRouter);
 
 // GET /submit - logs query parameters
 app.get('/submit', (req, res) => {
