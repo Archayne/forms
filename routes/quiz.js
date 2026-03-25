@@ -13,6 +13,15 @@ router.get("/", async (req, res) =>{
 
 router.post("/", (req, res)=>{
     console.log(req.body);
+    let {userChoice, correctDef} = req.body;
+    if(userChoice === correctDef){
+        console.log("user guessed Correctly!");
+        let score = totalCorrect+1;
+    }
+    let total = totalQuestions+1;
+    //Get another new set of words... how?
+    //Send that set of words back with the use
+    //Send some other data back?
 });
 
 let getWords = async ()=>{
@@ -20,6 +29,7 @@ let getWords = async ()=>{
     console.log("Getting a random Part!");
     let randomPart = getRandomPart(); //i should have noun, verb, or adjective
     //based on that, pick 4 words that match
+    console.log("Random part: ", randomPart);
     let allWords = await readFile('resources/allWords.txt', 'utf8'); //Reads allwords as 1 giant string
     let wordArray = allWords.split('\n'); //splits the single string into an arrray
     shuffle(wordArray); //shuffle that array
