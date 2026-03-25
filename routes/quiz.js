@@ -5,13 +5,19 @@ const {readFile} = require('fs').promises;
 
 router.get("/", async (req, res) =>{
     //Get 4 words, with their pos and def and send back to the other page
-    let choesnWords = await getWords();
+    let chosenWords = await getWords();
     //send those back and render quiz.ejs
-    console.log("Chosen Words: ", choesnWords);
+    console.log("Chosen Words: ", chosenWords);
+    res.render('quiz', {chosenWords});
+});
+
+router.post("/", (req, res)=>{
+    console.log(req.body);
 });
 
 let getWords = async ()=>{
     //get a random part of speech
+    console.log("Getting a random Part!");
     let randomPart = getRandomPart(); //i should have noun, verb, or adjective
     //based on that, pick 4 words that match
     let allWords = await readFile('resources/allWords.txt', 'utf8'); //Reads allwords as 1 giant string
