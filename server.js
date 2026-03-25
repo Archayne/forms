@@ -9,9 +9,16 @@ app.use(express.static("public"));
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('users', userRouter);
 
-app.use('quiz', quizRouter);
+app.use('/users', userRouter);
+app.use('/quiz', quizRouter);
+
+app.get('/solution', (req, res) => {
+  let num1 = parseInt(req.query[`num1`]);
+  let num2 = parseInt(req.query[`num2`]);
+  let total = num1 + num2
+  res.send(`<h2>${num1} + ${num2} = ${total} </h2>`);
+});
 
 // GET /submit - logs query parameters
 app.get('/submit', (req, res) => {
@@ -35,25 +42,6 @@ app.post('/submit', (req, res) => {
   res.send('<h2>POST request received!</h2><pre>' + JSON.stringify(req.body, null, 2) + '</pre>');
 });
 
-app.get('/solution', (req, res) => {
-  let num1 = parseInt(req.query[`num1`]);
-  let num2 = parseInt(req.query[`num2`]);
-  let total = num1 + num2
-  res.send(`<h2>${num1} + ${num2} = ${total} </h2>`);
-});
-
-router.get('/new', (req, res)=>{ // /users/new
-  res,send('User New Form');
-});
-
-
-router.route('/:id').get((req, res)=>{
- res.send(`Getting User data for id: ${req.params.id}`);
-}).delete((req, res)=>{
-res.send(`Deleting User data for id: ${req.params.id}`);
-}).put((req, res)=>{
-res.send(`Updating User data for id: ${req.params.id}`);
-});
 
 
 app.listen(3030, () => {
