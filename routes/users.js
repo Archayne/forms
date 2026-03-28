@@ -8,7 +8,7 @@ router.route('/').get((req, res)=>{
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const gender = req.body.gender;
-    const age = req.body.age;
+    const age = parseInt(req.body.age);
     const isValidFirstName = firstName !=="";
     const isValidLastName = lastName !=="";
     const isValidGender = gender !=="";
@@ -50,9 +50,13 @@ router.route('/:id').get((req, res)=>{
 });
 
 //const users = [{name:"George"}, {name:"Justyna"}];
-const users = [{firstName, lastName, gender, age}];
-router.param("id", (req, res, next, id)=>{
+const users = [{ firstName: "George", lastName: "Smith", gender: "Male", age: 30 },
+    {firstName: "Justyna", lastName: "Kowalski", gender: "Female", age: 25}];
+        router.param("id", (req, res, next, id)=>{
     console.log("Access attmept by User:", id);
+    console.log("Type of ID:", typeof id);
+    console.log("Users array:", users);
+    //console.log(id);
     req.user = users[id];
     next();
 })
