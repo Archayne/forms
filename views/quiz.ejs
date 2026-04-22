@@ -7,15 +7,23 @@
     <%
         let questionCount = locals.totalQuestions ?? 0;
         let score = locals.totalCorrect ?? 0;
+        let previousAnswer = locals.userChoice ?? null;
+        let previousCorrectAnswer = locals.correctDef ?? null;
         let randomIndex = parseInt(Math.random()*chosenWords.length); //generate a random index
         let chosenWord = chosenWords[randomIndex]; //pick that as our correct word
         let [correctWord, correctPart, correctDef] = chosenWord.split('\t'); //break
     %>
     <% if (questionCount === 0){ %>
         <h1>Welcome to the word quiz!</h1>
-
+        
     <% }else{ %>
         <h1>Score: <%= score %> / <%= questionCount %></h1>
+        
+        
+    <% } %>
+    <!--Show the correct definition if the previous answer was wrong-->
+    <% if(questionCount > 0 && previousAnswer != previousCorrectAnswer){ %>
+        <h2>Correct Definition: <%= previousCorrectAnswer %></h2>
     <% } %>
     <!--Show the word and part of speech-->
     <h2><%= correctWord %> - <%= correctPart%></h2> 

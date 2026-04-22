@@ -25,7 +25,7 @@ router.post("/", async (req, res)=>{
     //Get another new set of words... how?
     chosenWords = await getWords();
     //Send that set of words back with the use
-    res.render('quiz', {chosenWords, totalCorrect:score, totalQuestions:total});
+    res.render('quiz', {chosenWords, totalCorrect:score, totalQuestions:total, userChoice, correctDef});
     //Send some other data back?
 });
 
