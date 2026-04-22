@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/css/quiz.css">
     <title>Document</title>
 </head>
 <body>
@@ -9,37 +10,37 @@
         let score = locals.totalCorrect ?? 0;
         let previousAnswer = locals.userChoice ?? null;
         let previousCorrectAnswer = locals.correctDef ?? null;
+        let classVar = "";
+        if(questionCount > 0 && previousAnswer != previousCorrectAnswer){classVar = "incorrect";}else{classVar = "correct";}
         let randomIndex = parseInt(Math.random()*chosenWords.length); //generate a random index
         let chosenWord = chosenWords[randomIndex]; //pick that as our correct word
         let [correctWord, correctPart, correctDef] = chosenWord.split('\t'); //break
     %>
-    <% if (questionCount === 0){ %>
+    <% if (questionCount === 0){ %> <!--if no questions have been answered, say welcome-->
         <h1>Welcome to the word quiz!</h1>
-        
     <% }else{ %>
-        <h1>Score: <%= score %> / <%= questionCount %></h1>
-        
-        
+        <h1>Score: <%= score %> / <%= questionCount %></h1> <!--Show the score out of total questions answered-->
     <% } %>
+    <p><span class=<%= classVar %>> <%= previousAnswer %> </span></p>
     <!--Show the correct definition if the previous answer was wrong-->
     <% if(questionCount > 0 && previousAnswer != previousCorrectAnswer){ %>
-        <h2>Correct Definition: <%= previousCorrectAnswer %></h2>
+        <p>Correct Definition: <%= previousCorrectAnswer %></p>
     <% } %>
     <!--Show the word and part of speech-->
-    <h2><%= correctWord %> - <%= correctPart%></h2> 
+    <h2><%= correctWord %> - <%= correctPart%></h2>
     <form action="quiz" method="post"> <!--Submits to quiz.js-->
-    <ol>
-        <% for(currentWord of chosenWords){ 
-            //Loop through each word, show its definition only in the list
-            let [word, part, def] = currentWord.split('\t'); %>
-            <li><label><input type="radio" name="userChoice" value="<%= def %>"><%= def %></label></li>
+        <ol>
+            <% for(currentWord of chosenWords){ 
+                //Loop through each word, show its definition only in the list
+                let [word, part, def] = currentWord.split('\t'); %>
+                <li><label><input type="radio" name="userChoice" value="<%= def %>"><%= def %></label></li>
 
-        <% } %>
-    </ol>
-    <input type="submit" value="Submit Answer!">
-    <input type="hidden" name="correctDef" value="<%= correctDef %>">
-    <input type="hidden" name="totalQuestions" value="<%= questionCount %>">
-    <input type="hidden" name="totalCorrect" value="<%= score %>">
+            <% } %>
+        </ol>
+        <input type="submit" value="Submit Answer!">
+        <input type="hidden" name="correctDef" value="<%= correctDef %>">
+        <input type="hidden" name="totalQuestions" value="<%= questionCount %>">
+        <input type="hidden" name="totalCorrect" value="<%= score %>">
     </form>
 </body>
 </html>
