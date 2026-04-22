@@ -15,7 +15,6 @@ router.route('/').get((req, res)=>{
     const isValidAge = age !=="";
     if(isValidFirstName && isValidLastName && isValidGender && isValidAge){
         console.log(`Adding user: ${firstName} - ${lastName} - ${gender} - ${age}`);
-        console.log(`Adding user: ${age}`);
         users.push({firstName, lastName, gender, age});
         res.render('users/list', {users});
     }else{
